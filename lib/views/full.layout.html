@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=.5">
+		<title>Curated Hotel Lists for Companies, Teams, Event Attendees, Dream Vacations and more.</title>
+		<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/css/bootstrap-modal.css" rel="stylesheet">
+		<link href="/static/css/datepicker.css" rel="stylesheet">
+		<link href="/static/css/main.css" rel="stylesheet">
+		<link href="/static/css/hotel.dates.css" rel="stylesheet">
+		<link href="/static/css/hotel.rates.css" rel="stylesheet">
+		<link href="/static/css/about.css" rel="stylesheet">
+	</head>
+	<body style="min-width: 600px; width: 100%;">
+	<div class="page-container">
+		<div class="navbar navbar-fixed-top">
+			<div id="center_nav" class="clearfix" style="margin: 40px auto; width: 620px; background: #EEFCE3; box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4); padding: 10px;">
+				{% if authenticated %}
+				<div id="create_search">
+					<form action="/Searches" method="POST" class="form-inline" style="padding: 0; margin: 0;">
+						<input type="hidden" name="search_text" value="{{ search_text }}" />
+						<b> Save this search:</b> 
+						<div class="input-append"><input name="search_name" id="search_name" class="input-xlarge" style="width: 550px;" type="text"  placeholder="Enter a descriptive name."><button type="submit" class="btn btn-success">Save</button></div>					
+					</form>
+				</div>
+				{% else %}
+				<div id="sign_up_sign_in">
+					<div class="pull-left">					
+						<h4 style="padding: 0; margin: 0;">Create travel policies that work. We can help.</h4>
+						<h5 style="margin-bottom: 0;">Publish compliant hotel booking sites in minutes. <a href="/About/Learn-More" id="learn_more" style="text-decoration: underline; color: black;">Learn how.</a></h5>
+					</div>
+					<div class="pull-right" style="padding-top: 5px;">
+						<a href="/Sign/Up" class="btn btn-success" style="padding: 4px 16px;">Free Sign Up</a>
+						<a href="/Sign/In" class="btn" style="padding: 4px 16px;">Login</a>
+					</div>
+				</div>				
+				<div id="sign_up" class="hide">					
+					<div style="font-weight: bold;">Sign up to publish your own hotel lists. It's free.</div>
+					<form action="Sign/Up" method="POST" class="form-inline" style="padding: 0; margin: 0;">						
+						<input type="hidden" id="csrf" name="csrf" value="{{ csrf }}" />
+						<input type="text" id="email" name="email" value="{{ email }}" placeholder="Email">
+						<input type="password" id="password" name="password" placeholder="Password">
+						<button type="submit" class="btn btn-success" style="margin-top: 0;">Sign up</button>
+						<button type="submit" class="btn btn-link sign_up_cancel" style="margin-top: 0;">Cancel</button>
+						<div class="alert alert-block alert-error hide" style="margin-top: 8px;">							
+							<ul>
+
+							</ul>
+						</div>
+					</form>
+				</div>
+				<div id="sign_in" class="hide">
+					<div style="font-weight: bold;">Login to manage your hotel lists.</div>
+					<form action="/Sign/In" method="POST" class="form-inline" style="padding: 0; margin: 0;">
+						<input type="hidden" id="csrf" name="csrf" value="{{ csrf }}" />
+						<input type="text" id="email" name="email" value="{{ email }}" placeholder="Email">
+						<input type="password" id="password" name="password" placeholder="Password">
+						<button type="submit" class="btn btn-success" style="margin-top: 0;">Login</button>
+						<button type="submit" class="btn btn-link sign_in_cancel" style="margin-top: 0;">Cancel</button>
+						<div class="alert alert-block alert-error hide" style="margin-top: 8px;">
+							<ul>
+								
+							</ul>
+						</div>
+					</form>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="navbar navbar-fixed-top">			
+			<div class="navbar-inner">
+				<div class="container" style="width: auto;">					
+					<form action="/" method="GET" id="search_hotels" class="navbar-form pull-left">
+						<ul class="nav">							
+							<li style="padding-left: 4px;">								
+								<div class="input-append">
+									<input type="text" class="input-xxlarge" style="width: 400px; " id="search_text" name="search_text" value="{{ search_text }}" placeholder="{{ placeholder }}" />
+									<button type="submit" class="btn btn-success"><i class="icon-search icon-white"> </i></button>
+									<div class="btn-group parameter_search" style="margin-top: 0">
+										<button type="submit" class="btn btn-success  dropdown-toggle" data-toggle="dropdown" style="padding: 4px 6px;"><i class="icon-chevron-down icon-white"> </i></button>
+										<ul class="dropdown-menu pull-right" style="padding: 8px;">
+											<li>
+												<input type="radio" name="search_type" value="place" selected="selected" /> Search by city, point of interest, region, or airport
+											</li>
+											<li>
+												<input type="radio" name="search_type" value="address" /> Search by address
+											</li>
+											<li class="place_elements">
+												<label>Where are you going?</label> 
+												<input type="text" class="input-xlarge" style="width: 448px;" name="search_where" value="{{ search_where }}" placeholder="" />
+											</li>
+											<li class="address_elements hide">
+												<label>Country:</label> 
+											</li>
+											<li class="address_elements hide">
+												<label>Address:</label>
+												<input type="text" class="input-xlarge" style="width: 400px;" name="search_address" value="{{ search_address }}" placeholder="" />
+											</li>
+											<li class="address_elements hide">
+												<label>City:</label>
+												<input type="text" class="input-xlarge" style="width: 400px;" name="search_city" value="{{ search_city }}" placeholder="" />
+											</li>
+											<li class="address_elements hide">
+												<label>State/Province/:</label>
+												<input type="text" class="input-large" name="search_city" value="{{ search_state }}" placeholder="" />
+											</li>
+											<li class="address_elements hide">
+												<label>Zip / Postal Code:</label>
+												<input type="text" class="input-large" name="search_zip" value="{{ search_zip }}" placeholder="" />
+											</li>
+											<li>
+												<div class="row">
+													<div class="span3"><label>Arriving on</label></div>
+													<div class="span3"><label>Staying for</label></div>
+												</div>
+												<div class="row">
+													<div class="span3">
+														<div class="input-append">
+															<input type="text" class="input-medium" name="search_zip" value="{{ search_zip }}" disabled="disabled" placeholder="" />
+															<button class="btn"><i class="icon-calendar"> </i></button>
+														</div>
+													</div>
+													<div class="span3">
+														<select name="search_nights" class="input-medium">
+															<option value="1">1 Night</option>
+															<option value="2">2 Nights</option>
+															<option value="3">3 Nights</option>
+															<option value="4">4 Nights</option>
+															<option value="5">5 Nights</option>
+															<option value="6">6 Nights</option>
+															<option value="7">7 Nights</option>
+															<option value="8">8 Nights</option>
+															<option value="9">9 Nights</option>
+															<option value="10">10 Nights</option>
+															<option value="11">11 Nights</option>
+															<option value="12">12 Nights</option>
+															<option value="13">13 Nights</option>
+															<option value="14">14 Nights</option>
+															<option value="15">15 Nights</option>
+															<option value="16">16 Nights</option>
+															<option value="17">17 Nights</option>
+															<option value="18">18 Nights</option>
+															<option value="19">19 Nights</option>
+															<option value="20">20 Nights</option>
+															<option value="21">21 Nights</option>
+															<option value="22">22 Nights</option>
+															<option value="23">23 Nights</option>
+															<option value="24">24 Nights</option>
+															<option value="25">25 Nights</option>
+														</select>
+													</div>
+												</div>
+											</li>											
+											<li>
+												<div class="row">
+													<div class="span3"><label>Rooms</label></div>
+													<div class="span3"><label>Adults</label></div>
+												</div>
+												<div class="row">
+													<div class="span3">
+														<select name="search_rooms" class="input-medium">
+															<option value="1">1 Room</option>
+															<option value="2">2 Rooms</option>
+															<option value="3">3 Rooms</option>
+															<option value="4">4 Rooms</option>
+														</select>
+													</div>
+													<div class="span3">
+														<select name="search_adults" class="input-medium">
+															<option value="1">1 Adult (18+)</option>
+															<option value="2">2 Adults (18+)</option>
+															<option value="3">3 Adults (18+)</option>
+															<option value="4">4 Adults (18+)</option>
+															<option value="5">5 Adults (18+)</option>
+															<option value="6">6 Adults (18+)</option>
+															<option value="7">7 Adults (18+)</option>
+															<option value="8">8 Adults (18+)</option>
+														</select>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row">
+													<div class="span3"><label>Star rating</label></div>
+													<div class="span3"><label>Chain</label></div>
+												</div>
+												<div class="row">
+													<div class="span3">
+														<select name="search_rating" class="input-medium">
+															<option value="1">No Preference</option>
+															<option value="2">2 Stars and up</option>
+															<option value="3">3 Stars and up</option>
+															<option value="4">4 Stars and up</option>
+															<option value="5">5 Stars</option>
+														</select>
+													</div>
+													<div class="span3">
+														<select name="search_chain" class="input-medium">
+															<option value="0">No Preference</option>
+														</select>
+													</div>
+												</div>												
+											</li>
+											<li>
+												<label>Hotel Name:</label>
+												<input type="text" class="input-xlarge" style="width: 448px;" name="hotel_name" value="{{ hotel_name }}" placeholder="" />
+											</li>	
+											<li class="pull-right" style="padding-top: 12px;">
+												<button type="submit" class="btn btn-success" style="border-radius: 4px;">Find</button>
+											</li>
+										</ul>
+									</div>															
+								</div>
+							</li>
+							<li class="divider-vertical"></li>
+							<li>
+								<button type="submit" class="btn btn-success" id="open_map"><i class="icon-globe icon-white"> </i></button>
+							</li>
+						</ul>					
+					</form>
+					<ul id="right_nav" class="nav pull-right">
+						{% if authenticated %}
+						<li class="dropdown" id="search_manager">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="/Searches">My Searches <b class="caret"></b></a>
+							<ul class="dropdown-menu">																
+								{% if searches %}
+								{% for search in searches %}
+								<li><a href="/Searches/{{search.key }}" class="searches">{{ search.name }}</a></li>
+								{% endfor %}									
+								{% endif %}										
+							</ul>
+						</li>
+						<li class="dropdown" id="list_manager">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="/Lists">My Lists <b class="caret"></b></a>
+							<ul class="dropdown-menu">																
+								{% if lists %}
+								{% for list in lists %}
+								<li><a href="/Lists/{{list.key }}" class="lists">{{ list.name }}</a></li>
+								{% endfor %}	
+								<li class="divider"></li>								
+								{% endif %}								
+								<li style="padding: 0 15px;"><b>Add a new list:</b>
+									<form action="/Lists" method="POST" class="list_create">
+										<div class="input-append">
+											<input type="text" name="list_name" value="" placeholder="Enter a descriptive name." id="list_name" class="input-large list_name"  style="width: 240px;"><button type="submit" class="btn btn-success">Add</button>
+										</div>
+									</form>
+								</li>
+								
+							</ul>
+						</li>
+						{% else %}
+						<li class="dropdown" id="about">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="/About/Us">About <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="/">Home</a></li>
+								<li><a href="/About/Seeking-Beta">About Us</a></li>
+								<!--<li><a href="/About/Us">About Us</a></li>-->
+								<li class="divider"></li>
+								<li><a href="/About/Terms-of-Service">Terms of Service</a></li>
+								<li><a href="/About/Privacy-Policy">Privacy Policy</a></li>
+							</ul>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</div>	
+		
+		<div class="container" style="width: auto;" id="content">		
+		<input type="hidden" id="csrf" name="csrf" value="{{ csrf }}" />
+		{% block content %}{% endblock %}
+		</div>
+
+		<div id="modal" class="modal hide fade" style="border: 0; border-radius: 0">
+			<div style="margin: 0; padding: 0; box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4); min-width: 550px;">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="padding: 4px 6px 0 0;">&#10006;</button>
+				<div class="modal-body" style="margin: 0; padding: 0 20px 20px 20px; clear: both;"></div>
+			</div>
+		</div>
+
+		<div id="map_modal" class="modal hide fade" style="border: 0; border-radius: 0">
+			<div style="margin: 0; padding: 0; box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4); min-width: 550px;">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="padding: 4px 6px 0 0;">&#10006;</button>
+				<div class="modal-body" style="margin: 0; padding: 0 20px 20px 20px; clear: both;"></div>
+			</div>
+		</div>
+				
+		<script src="/static/js/jquery-1.9.1.js"></script>
+		<script src="/static/js/jquery-migrate-1.1.1.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/bootstrap.min.js"></script>
+		<script src="/static/js/bootstrap-modal.js"></script>
+		<script src="/static/js/bootstrap-modalmanager.js"></script>
+		<script src="/static/js/bootstrap-datepicker.js"></script>
+		<script src="/static/js/jquery.isotope.min.js"></script>
+		<script src="/static/js/jquery.infinitescroll.min.js"></script>
+		<script src="/static/js/jquery.inview.min.js"></script>
+		<script src="/static/js/jquery.sparkline.min.js"></script>
+		<script src="/static/js/main.js"></script>
+	</div>	
+	</body>
+</html>

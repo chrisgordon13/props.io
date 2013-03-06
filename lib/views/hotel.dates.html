@@ -1,0 +1,285 @@
+{% import 'forms.html' as forms %}
+<div class="hotel_dates">
+	<a href="#" class="hotel_dates_display" id="hdd">These rates are for <span>{{ adult_count }} adult{% if adult_count > 1 %}s{% endif %}</span>{% if child_count > 0 %} and <span>{{ child_count }} {% if child_count > 1 %}children{% else %}child{% endif %}</span>{% endif %} staying in <span>{{ room_count }} room{% if room_count > 1 %}s{% endif %}</span> from <span>{{ arrival_date_long }}</span> until <span>{{ departure_date_long }}</span>.</a>
+	<div class="hotel_dates_chooser hide" style="padding: 15px 0;">
+		<form class="form-inline hotel_dates_form" action="{{ form_url }}">
+			<div class="row hotel_dates_fields">
+				<div class="span">
+					<div class="row hotel_dates_header">
+						<div class="span1 muted"></div>
+						<div class="span1">Adults:</div>
+						<div class="span5">Children's Ages:</div>
+					</div>
+
+					<div class="row  hotel_dates_fields">
+						<div class="span1 muted">
+							<label>Room 1:</label>
+						</div>
+						<div class="span1">
+							<select name="adults1" class="input-mini">
+								{{ forms.options(adults_options, adults1) }}
+							</select>
+						</div>
+						<div class="span5">
+							<select name="child1c1" class="input-mini">
+							{{ forms.options(childrens_ages, child1c1) }}
+							</select>
+							<select name="child1c2" class="input-mini">
+							{{ forms.options(childrens_ages, child1c2) }}
+							</select>
+							<select name="child1c3" class="input-mini">
+							{{ forms.options(childrens_ages, child1c3) }}
+							</select>
+							<select name="child1c4" class="input-mini">
+							{{ forms.options(childrens_ages, child1c4) }}
+							</select>
+							<select name="child1c5" class="input-mini">
+							{{ forms.options(childrens_ages, child1c5) }}
+							</select>
+							<select name="child1c6" class="input-mini">
+							{{ forms.options(childrens_ages, child1c6) }}
+							</select>
+						</div>
+					</div>
+
+					<div class="row hotel_dates_fields room room2">
+						<div class="span1 muted">
+							<label>Room 2:</label>
+						</div>
+						<div class="span1">
+							<select name="adults2" id="adults2" class="input-mini">
+								{{ forms.options(adults_options, adults2) }}
+							</select>
+						</div>
+						<div class="span5">
+							<select name="child2c1" class="input-mini">
+							{{ forms.options(childrens_ages, child2c1) }}
+							</select>
+							<select name="child2c2" class="input-mini">
+							{{ forms.options(childrens_ages, child2c2) }}
+							</select>
+							<select name="child2c3" class="input-mini">
+							{{ forms.options(childrens_ages, child2c3) }}
+							</select>
+							<select name="child2c4" class="input-mini">
+							{{ forms.options(childrens_ages, child2c4) }}
+							</select>
+							<select name="child2c5" class="input-mini">
+							{{ forms.options(childrens_ages, child2c5) }}
+							</select>
+							<select name="child2c6" class="input-mini">
+							{{ forms.options(childrens_ages, child2c6) }}
+							</select>
+						</div>
+					</div>
+
+					<div class="row hotel_dates_fields room room3 {% if room_count < 2 %}hide{% endif %}">
+						<div class="span1 muted">
+							<label>Room 3:</label>
+						</div>
+						<div class="span1">
+							<select name="adults3" id="adults3" class="input-mini">
+								{{ forms.options(adults_options, adults3) }}
+							</select>
+						</div>
+						<div class="span5">
+							<select name="child3c1" class="input-mini">
+							{{ forms.options(childrens_ages, child3c1) }}
+							</select>
+							<select name="child3c2" class="input-mini">
+							{{ forms.options(childrens_ages, child3c2) }}
+							</select>
+							<select name="child3c3" class="input-mini">
+							{{ forms.options(childrens_ages, child3c3) }}
+							</select>
+							<select name="child3c4" class="input-mini">
+							{{ forms.options(childrens_ages, child3c4) }}
+							</select>
+							<select name="child3c5" class="input-mini">
+							{{ forms.options(childrens_ages, child3c5) }}
+							</select>
+							<select name="child3c6" class="input-mini">
+							{{ forms.options(childrens_ages, child3c6) }}
+							</select>
+						</div>
+					</div>
+
+					<div class="row hotel_dates_fields room room4 {% if room_count < 3 %}hide{% endif %}">
+						<div class="span1 muted">
+							<label>Room 4:</label>
+						</div>
+						<div class="span1">
+							<select name="adults4" id="adults4" class="input-mini">
+								{{ forms.options(adults_options, adults4) }}
+							</select>
+						</div>
+						<div class="span5">
+							<select name="child4c1" class="input-mini">
+							{{ forms.options(childrens_ages, child4c1) }}
+							</select>
+							<select name="child4c2" class="input-mini">
+							{{ forms.options(childrens_ages, child4c2) }}
+							</select>
+							<select name="child4c3" class="input-mini">
+							{{ forms.options(childrens_ages, child4c3) }}
+							</select>
+							<select name="child4c4" class="input-mini">
+							{{ forms.options(childrens_ages, child4c4) }}
+							</select>
+							<select name="child4c5" class="input-mini">
+							{{ forms.options(childrens_ages, child4c5) }}
+							</select>
+							<select name="child4c6" class="input-mini">
+							{{ forms.options(childrens_ages, child4c6) }}
+							</select>
+						</div>
+					</div>
+
+					<div class="row hotel_dates_fields room room5 {% if room_count < 4 %}hide{% endif %}">
+						<div class="span1 muted">
+							<label>Room 5:</label>
+						</div>
+						<div class="span1">
+							<select name="adults5" id="adults5" class="input-mini">
+								{{ forms.options(adults_options, adults5) }}
+							</select>
+						</div>
+						<div class="span5">
+							<select name="child5c1" class="input-mini">
+							{{ forms.options(childrens_ages, child5c1) }}
+							</select>
+							<select name="child5c2" class="input-mini">
+							{{ forms.options(childrens_ages, child5c2) }}
+							</select>
+							<select name="child5c3" class="input-mini">
+							{{ forms.options(childrens_ages, child5c3) }}
+							</select>
+							<select name="child5c4" class="input-mini">
+							{{ forms.options(childrens_ages, child5c4) }}
+							</select>
+							<select name="child5c5" class="input-mini">
+							{{ forms.options(childrens_ages, child5c5) }}
+							</select>
+							<select name="child5c6" class="input-mini">
+							{{ forms.options(childrens_ages, child5c6) }}
+							</select>
+						</div>
+					</div>
+
+					<div class="row hotel_dates_fields room room6 {% if room_count < 5 %}hide{% endif %}">
+						<div class="span1 muted">
+							<label>Room 6:</label>
+						</div>
+						<div class="span1">
+							<select name="adults6" id="adults6" class="input-mini">
+								{{ forms.options(adults_options, adults6) }}
+							</select>
+						</div>
+						<div class="span5">
+							<select name="child6c1" class="input-mini">
+							{{ forms.options(childrens_ages, child6c1) }}
+							</select>
+							<select name="child6c2" class="input-mini">
+							{{ forms.options(childrens_ages, child6c2) }}
+							</select>
+							<select name="child6c3" class="input-mini">
+							{{ forms.options(childrens_ages, child6c3) }}
+							</select>
+							<select name="child6c4" class="input-mini">
+							{{ forms.options(childrens_ages, child6c4) }}
+							</select>
+							<select name="child6c5" class="input-mini">
+							{{ forms.options(childrens_ages, child6c5) }}
+							</select>
+							<select name="child6c6" class="input-mini">
+							{{ forms.options(childrens_ages, child6c6) }}
+							</select>
+						</div>
+					</div>
+
+					<div class="row hotel_dates_fields room room7 {% if room_count < 6 %}hide{% endif %}">
+						<div class="span1 muted">
+							<label>Room 7:</label>
+						</div>
+						<div class="span1">
+							<select name="adults7" id="adults7" class="input-mini">
+								{{ forms.options(adults_options, adults7) }}
+							</select>
+						</div>
+						<div class="span5">
+							<select name="child7c1" class="input-mini">
+							{{ forms.options(childrens_ages, child7c1) }}
+							</select>
+							<select name="child7c2" class="input-mini">
+							{{ forms.options(childrens_ages, child7c2) }}
+							</select>
+							<select name="child7c3" class="input-mini">
+							{{ forms.options(childrens_ages, child7c3) }}
+							</select>
+							<select name="child7c4" class="input-mini">
+							{{ forms.options(childrens_ages, child7c4) }}
+							</select>
+							<select name="child7c5" class="input-mini">
+							{{ forms.options(childrens_ages, child7c5) }}
+							</select>
+							<select name="child7c6" class="input-mini">
+							{{ forms.options(childrens_ages, child7c6) }}
+							</select>
+						</div>
+					</div>
+
+					<div class="row hotel_dates_fields room room8 {% if room_count < 7 %}hide{% endif %}">
+						<div class="span1 muted">
+							<label>Room 8:</label>
+						</div>
+						<div class="span1">
+							<select name="adults8" class="input-mini">
+								{{ forms.options(adults_options, adults8) }}
+							</select>
+						</div>
+						<div class="span5">
+							<select name="child8c1" class="input-mini">
+							{{ forms.options(childrens_ages, child8c1) }}
+							</select>
+							<select name="child8c2" class="input-mini">
+							{{ forms.options(childrens_ages, child8c2) }}
+							</select>
+							<select name="child8c3" class="input-mini">
+							{{ forms.options(childrens_ages, child8c3) }}
+							</select>
+							<select name="child8c4" class="input-mini">
+							{{ forms.options(childrens_ages, child8c4) }}
+							</select>
+							<select name="child8c5" class="input-mini">
+							{{ forms.options(childrens_ages, child8c5) }}
+							</select>
+							<select name="child8c6" class="input-mini">
+							{{ forms.options(childrens_ages, child8c6) }}
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="span">
+					<div class="row hotel_dates_header">
+						<div class="span2">Arrival Date:</div>
+						<div class="span2">Departure Date</div>
+					</div>
+					
+					<div class="row  hotel_dates_fields">
+
+						<div class="span2">
+							<input type="text" name="arrival_date" id="arrival_date" class="input-small datepicker" value="{{ arrival_date }}" readonly style="cursor: pointer">							
+						</div>
+
+						<div class="span2">
+							<input type="text" name="departure_date" id="departure_date" class="input-small datepicker" value="{{ departure_date }}" readonly  style="cursor: pointer">
+						</div>
+
+					</div>
+				</div>
+			</div>				
+		<input type="submit" class="btn btn-large btn-block btn-success" style="margin-top: 10px;" value="Update Rates">
+		</form>
+	</div>
+</div>

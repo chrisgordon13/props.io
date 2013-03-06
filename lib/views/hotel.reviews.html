@@ -1,0 +1,5 @@
+{% extends output_type == 'partial' ? "partial.layout.html" : "full.layout.html" %}
+
+{% block content %}
+<iframe style="margin: 0; padding: 0; border: 0; width: 100%; height: 1600px;" src="//www.tripadvisor.com/WidgetEmbed-cdspropertydetail?locationId={{ hotel_id }}&partnerId=fcdfe76073dc436aad9244439bac88be&display=true">
+{% endblock %}

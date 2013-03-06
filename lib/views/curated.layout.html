@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=.5">
+		<title>{{ list.name }}</title>
+		<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/css/bootstrap-modal.css" rel="stylesheet">
+		<link href="/static/css/datepicker.css" rel="stylesheet">
+		<link href="/static/css/main.css" rel="stylesheet">
+		<link href="/static/css/hotel.dates.css" rel="stylesheet">
+		<link href="/static/css/hotel.rates.css" rel="stylesheet">
+		<link href="/static/css/about.css" rel="stylesheet">
+	</head>
+	<body style="min-width: 600px; width: 100%;" class="curated">
+	<div class="page-container">		
+		<div class="navbar navbar-fixed-top">			
+			<div class="navbar-inner">
+				<div class="container" style="width: auto;">					
+					<form action="/" method="GET" id="search_hotels" class="navbar-form pull-left">
+						<input type="hidden" name="arrival_date" id="arrival_date" value="{{ arrival_date }}" />
+						<input type="hidden" name="departure_date" id="departure_date" value="{{ departure_date }}" />
+						<ul class="nav">							
+							<li style="padding-left: 4px;">								
+								<div class="input-append"><input type="text" class="input-xxlarge" style="width: 510px; " id="search_text" name="search_text" value="{{ search_text }}" placeholder="{{ placeholder }}" autocomplete="off" data-provide="typeahead" data-source='[{% for search in searches %}"{{ search.name }}"{% if not loop.last %},{% endif %}{% endfor %}]' data-items="20" data-minLength="0" /><button type="submit" class="btn btn-success"><i class="icon-search icon-white"> </i></button></div>
+							</li>
+							<li class="divider-vertical"></li>
+							<li>
+								<button type="submit" class="btn btn-success" id="open_map"><i class="icon-globe icon-white"> </i></button>
+							</li>							
+						</ul>					
+					</form>
+				</div>
+			</div>
+		</div>	
+		
+		<div class="container" style="width: auto;" id="content">		
+		<input type="hidden" id="csrf" name="csrf" value="{{ csrf }}" />
+		{% block content %}{% endblock %}
+		</div>
+
+		<div id="modal" class="modal hide fade" style="border: 0; border-radius: 0">
+			<div style="margin: 0; padding: 0; box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4); min-width: 550px;">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="padding: 4px 6px 0 0;">&#10006;</button>
+				<div class="modal-body" style="margin: 0; padding: 0 20px 20px 20px; clear: both;"></div>
+			</div>
+		</div>
+
+		<div id="map_modal" class="modal hide fade" style="border: 0; border-radius: 0">
+			<div style="margin: 0; padding: 0; box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4); min-width: 550px;">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="padding: 4px 6px 0 0;">&#10006;</button>
+				<div class="modal-body" style="margin: 0; padding: 0 20px 20px 20px; clear: both;"></div>
+			</div>
+		</div>
+				
+		<script src="/static/js/jquery-1.9.1.js"></script>
+		<script src="/static/js/jquery-migrate-1.1.1.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/bootstrap.min.js"></script>
+		<script src="/static/js/bootstrap-modal.js"></script>
+		<script src="/static/js/bootstrap-modalmanager.js"></script>
+		<script src="/static/js/bootstrap-datepicker.js"></script>
+		<script src="/static/js/jquery.isotope.min.js"></script>
+		<script src="/static/js/jquery.infinitescroll.min.js"></script>
+		<script src="/static/js/jquery.inview.min.js"></script>
+		<script src="/static/js/jquery.history.js"></script>
+		<script src="/static/js/main.js"></script>
+	</div>	
+	</body>
+</html>

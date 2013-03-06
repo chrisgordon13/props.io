@@ -1,0 +1,11 @@
+{% extends output_type == 'partial' ? "partial.layout.html" : "full.layout.html" %}
+
+{% block content %}
+<div class="hscroll" style="height: 250px; overflow: auto; white-space:nowrap;">
+	{% for image in hotel_images %}
+	<img src="{{ image.url }}" style="height: 233px;" />
+	{% endfor %}		
+</div>
+<a id="left_click" class="carousel-control left" href="#" style="top: 110px;">&lsaquo;</a>
+<a id="right_click" class="carousel-control right" href="#" style="top: 110px;">&rsaquo;</a>
+{% endblock %}

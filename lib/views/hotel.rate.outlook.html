@@ -1,0 +1,19 @@
+<h4>Weekly Rate Outlook for {{ begin_date }} through {{ end_date }}</h4>
+<p class="muted">Each bar represents the high and low rate for a Tuesday through Thursday stay. Missing bars indicate no availability.</p>
+<div id="rate_outlook" style="width:760px">{% for rate in rates %}{{ rate.low_ave_rate }}:{{ rate.high_ave_rate }}{% if not loop.last %},{% endif %}{% endfor %}</div>
+
+<script type="text/javascript">
+	$('#rate_outlook').sparkline('html', { 
+		height: '200px', 
+		barWidth: 15, 
+		type:'bar', 
+		stackedBarColor: ['#51A351', '#0088CC'],
+		dates: [{% for rate in rates %}'{{ rate.arrival_date }} ~ {{ rate.departure_date }}'{% if not loop.last %},{% endif %}{% endfor %}],
+		tooltipFormatter: function(sp, options, fields) {
+			var i = fields[0].offset;
+			return	'<div class="jqsfield">Dates shopped: '+ options.get('dates')[i] +'</div>' +
+					'<div class="jqsfield"><span style="color: '+fields[0].color+'">&#9679;</span> High Rate: '+fields[0].value+'</div>' +
+					'<div class="jqsfield"><span style="color: '+fields[1].color+'">&#9679;</span> Low Rate: '+fields[1].value+'</div>';
+		}		
+	});
+</script>

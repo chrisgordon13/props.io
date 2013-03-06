@@ -1,0 +1,52 @@
+{% extends output_type == 'partial' ? "partial.layout.html" : "full.layout.html" %}
+
+{% import 'forms.html' as forms %}
+
+{% block content %}
+<form action="/Lists/{{ list.key }}" method="PUT" id="update_list" class="form-inline" style="margin: 0 auto; max-width: 840px;">
+<h3 class="clearfix"><a href="//{{ list.key}}.{{ site }}" target="_blank" style='padding-right: 14px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=") no-repeat scroll right center transparent;'>{{ list.key}}.{{ site }}</a><div class="pull-right" style="margin-top: -3px;"><button id="update_list_button" class="btn btn-success btn-mini" style="margin-right: 4px;">Save Changes</button><a href="/Lists/{{ list.key }}" id="archive_list" class="btn btn-danger btn-mini">Archive</a></div></h3>
+List Name: <input type="text" name="list_name" id="list_name" value="{{ list.name }}" class="input-large" /> Check to display name on listing <input type="checkbox" name="display_name" id="display_name" value="Y" style="margin-bottom: 6px;" {% if list.display_name == 'Y' %}checked="checked" {% endif %}/>
+<div style="padding-top: 12px;">Default Pricing Guidelines <span class="muted">(Choose one)</span></div>
+<ul>
+	<li><div><input type="radio" name="fixed_variable_pricing" value="variable" style="margin-bottom: 8px;"{% if list.fixed_variable_pricing == 'variable' %}checked="checked"{% endif %} /> Hotels with a maximum variable price of <input type="text" name="max_price_percent" value="{{ list.max_price_percent }}" class="input-mini" />% above the {{ list.max_price_condition }} of local <select name="max_price_rating" class="input-mini">{{ forms.options(valid_ratings, list.max_price_rating|default(3)) }}</select> star hotels. <span class="muted">(Recommended)</span></div></li>
+	<li><div style="padding-top: 12px;"><input type="radio" name="fixed_variable_pricing" value="fixed" style="margin-bottom: 8px;"{% if list.fixed_variable_pricing == 'fixed' %}checked="checked"{% endif %} /> Hotels with a maximum fixed price of <input type="text" name="max_price" value="{{ list.max_price }}" class="input-small" /> USD.</div></li>
+</ul>
+</form>
+<ul id="list_tabs" class="nav nav-tabs list_tabs" style="margin-top: 12px;">
+	<li class="active"><a href="#Included-Searches" data-toggle="tab">Included Searches</a></li>
+	<li><a href="#Publish-Site" data-toggle="tab">Site Publishing Directions</a></li>	
+</ul>
+<div class="tab-content" style="margin: 0 auto; max-width: 840px;">
+	<div class="tab-pane active" id="Included-Searches">
+		<div style="padding-bottom: 10px;">Checked searches will be included in your site.</div>
+		<form action="/Lists/{{ list.key }}/Searches" method="POST">
+		{% for search in searches %}
+			<div style="padding-bottom: 10px; padding-left: 4px;">
+				<label><input type="checkbox" name="searches[]" value="{{ search.search_key }}" style="margin-bottom: 6px;"{% if search.list_id > 0 %}checked="checked"{% endif %} /> <b>{{ search.name }}</b> ~ {{ search.search_text }} <a class="muted search_details_toggle" href="/Searches/{{ search.search_key }}" style="text-decoration: underline;">Details</a></label>
+				<ol class="hide search_details" style="padding-left: 12px;">																
+					<li style="padding-bottom: 12px;">Hotels with ratings between {{ search.min_rating }} and {{ search.max_rating }} stars.</li>
+					{% if search.fixed_variable_pricing == 'variable' %}
+					<li style="padding-bottom: 12px;">Hotels with a maximum variable price of {{ search.max_price_percent }}% above the {{ search.max_price_condition }} of local {{ search.max_price_rating }} star hotels.</li>
+					{% else %}
+					<li style="padding-bottom: 12px;">Hotels with a maximum fixed price of {{ search.max_price }} USD.</li>
+					{% endif %}
+					<li style="padding-bottom: 12px;">Hotels that are within {{ search.proximity }} miles of this search's center.</li>
+				</ol>
+			</div>
+
+		{% endfor %}
+		</form>
+	</div>
+	<div class="tab-pane" id="Publish-Site">
+		<form action="/Lists/{{ list.key }}/Send-Instructions" method="PUT" class="form-inline">
+		<p>Your hotel booking site may be accessed in a number of different ways.</p>
+		<ul>
+			<li style="padding-bottom: 12px;">You can send travelers directly to the site's URL at <a href="//{{ list.key}}.{{ site }}" target="_blank">{{ list.key}}.{{ site }}</a>.</li>
+			<li style="padding-bottom: 12px;">You may create an alias for your site's URL and send your travelers there <span class="muted">(For example: 'hotels.my-company.com')</span>. To do this you will need to add a CNAME record to your DNS server pointing to {{ list.key}}.{{ site }}. <!--If you are not familiar and/or comfortable doing this, send these directions to your web person <div class="input-append"><input type="text" name="web_person" id="web_person" placeholder="Email address" /><button id="send_instructions_dns" class="btn btn-success">Send</button></div>--></li>
+			<li style="padding-bottom: 12px;">You may host your site within one of your existing web pages on your companies website or intranet. To do this you will need to insert an 'iframe' in the desired HTML host page.<pre>&lt;iframe src="http://{{ list.key}}.{{ site }}" width="940" height="700" style="border: 0"&gt;&lt;/iframe&gt;</pre><!--If you are not familiar and/or comfortable doing this, send these directions to your web person <div class="input-append"><input type="text" name="web_person" id="web_person" placeholder="Email address" /><button id="send_instructions_iframe" class="btn btn-success">Send</button></div>--></li>
+		</ul>
+		</form>
+	</div>	
+	<div class="tab-pane" id="Announce-Site"></div>	
+</div>
+{% endblock %}

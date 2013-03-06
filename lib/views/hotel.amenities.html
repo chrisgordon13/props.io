@@ -1,0 +1,16 @@
+{% extends output_type == 'partial' ? "partial.layout.html" : "full.layout.html" %}
+
+{% block content %}
+<div class="row">
+	<div class="span5">
+		{% for amenity in hotel_amenities_left %}
+		<i class="icon-star-empty"> </i> {{ amenity.name }}{{ amenity.value }}<br />	
+		{% endfor %}
+	</div>
+	<div class="span4">
+		{% for amenity in hotel_amenities_right %}
+		<i class="icon-star-empty"> </i> {{ amenity.name }}{{ amenity.value }}<br />
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

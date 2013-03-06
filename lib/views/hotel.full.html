@@ -1,0 +1,51 @@
+{% extends output_type == 'partial' ? "partial.layout.html" : "full.layout.html" %}
+
+{% block content %}
+<h3 id="hotel_name" style='border-bottom: 1px solid #E5E5E5; margin: 0 0 8px 0; padding: 0;'>{{ hotel.name }}</h3>
+
+<div id="hotel_images" style="height: 233px; overflow: hidden; position: relative">
+	<div class="hscroll" style="height: 250px; overflow: auto; white-space:nowrap;">
+		{% for image in hotel.images %}
+		<img src="{{ image.url }}" style="height: 233px;" />
+		{% endfor %}		
+	</div>
+	<a id="left_click" class="carousel-control left" href="#" style="top: 110px;">&lsaquo;</a>
+	<a id="right_click" class="carousel-control right" href="#" style="top: 110px;">&rsaquo;</a>
+</div>
+
+<ul id="hotel_tabs" class="nav nav-tabs hotel_tabs" style="margin-top: 10px;">
+	<li><a href="#Hotel-Description" data-toggle="tab">Hotel Description</a></li>
+	<li class="active"><a href="#Room-Rates" data-toggle="tab">Room Rates</a></li>
+	<li><a href="#Hotel-Amenities" data-toggle="tab">Hotel Amenities</a></li>
+	<li><a href="#TripAdvisor-Reviews" data-toggle="tab"><img src="//www.tripadvisor.com/img/cdsi/partner/full-logo-16819-0.gif" style="height: 20px; border=0; margin-top: -5px;" /></a></li>
+</ul>
+
+<div class="tab-content">
+	<div class="tab-pane" id="Hotel-Description">{{ hotel.description|raw }}</div>
+
+	<div class="tab-pane active" id="Room-Rates">
+		    <div class="progress progress-striped active" style="width: 200px; margin: 10px auto;">
+				<div class="bar bar-success" style="width: 100%;"></div>
+			</div>
+	</div>
+	
+	<div class="tab-pane" id="Hotel-Amenities">
+		<div class="row">
+			<div class="span5">
+				{% for amenity in hotel.amenities_left %}
+				<i class="icon-star-empty"> </i> {{ amenity.name }}{{ amenity.value }}<br />	
+				{% endfor %}
+			</div>
+			<div class="span4">
+				{% for amenity in hotel.amenities_right %}
+				<i class="icon-star-empty"> </i> {{ amenity.name }}{{ amenity.value }}<br />
+				{% endfor %}
+			</div>
+		</div>
+	</div>	
+
+	<div class="tab-pane" id="TripAdvisor-Reviews" style="margin-top: -160px;">
+		<iframe style="margin: 0; padding: 0; border: 0; width: 100%; height: 1600px;" src="//www.tripadvisor.com/WidgetEmbed-cdspropertydetail?locationId={{ hotel.id }}&partnerId=fcdfe76073dc436aad9244439bac88be&display=true"></iframe>
+	</div>
+</div>
+{% endblock %}

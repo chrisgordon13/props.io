@@ -1,0 +1,12 @@
+{% extends output_type == 'partial' ? "partial.layout.html" : "full.layout.html" %}
+
+{% block content %}
+<h4>Login to manage your hotel lists.</h4>
+	<form action="/Sign/In" method="POST" class="form-inline" >
+		<input type="hidden" id="csrf" name="csrf" value="{{ csrf }}" />
+		<input type="text" id="email" name="email" value="{{ email }}" placeholder="Email">
+		<input type="password" id="password" name="password" placeholder="Password">
+		<button type="submit" class="btn btn-success" style="margin-top: 0;">Login</button>
+		<button type="submit" class="btn btn-link sign_in_cancel" style="margin-top: 0;">Cancel</button>
+	</form>
+{% endblock %}

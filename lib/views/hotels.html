@@ -1,0 +1,23 @@
+{% extends ajax ? "app.ajax.layout.html" : "default.layout.html" %}
+
+{% block content %}
+		{% if props %}	
+		<div id="main" style="margin: 0 auto;">			
+			{% for prop in props %}
+			<div class="tile" id="{{ prop.Key }}" style="width: 270px; box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4); margin: 5px; padding: 10px 10px 0 10px; float: left; cursor: pointer; cursor: -moz-zoom-in; cursor: -webkit-zoom-in">			
+				<div style="border-bottom: 1px solid #E5E5E5; margin-bottom: 8px; padding-bottom: 4px; font-size: 1em; font-weight: bold; color: black; text-decoration: none;" class="hotel_name">{{ prop.Name }}&nbsp;&raquo;</div>
+				<div><img class="image" src="{{ prop.PrimaryImage }}" style="width: 270px; border: 1px solid #F2F0F0;" /></div>
+				<div style="padding: 4px 0 8px 0;">
+					<div class="ta-rating  muted" style="width: 180px; float: left; padding-top: 2px;"><strong>{{ prop.LowRate|number_format(2) }}</strong> to <strong>{{ prop.HighRate|number_format(2) }}</strong> {{ prop.PropertyCurrency }}<!--<img src="http://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/{{ prop.Rating }}-239470-4.gif" border=0 />--></div> 
+					<div class="rating" style="width: 100px; float: right;" data-rating="{{ prop.Rating }}"></div>
+					<div class="rates muted" style="clear: both; padding-top: 6px;"><strong><!--{{ prop.LowRate|number_format(2) }}</strong> to <strong>{{ prop.HighRate|number_format(2) }}</strong> {{ prop.PropertyCurrency }}--></div>
+				</div>
+			</div>
+			{% endfor %}			
+			<div id="page_nav">
+				<a href="{{ page_nav }}"></a>
+			</div>
+		</div>
+		<div class="small muted" style="margin-top: 20px; text-align: center;">Traveler Reviews brought to you by: <img src="http://www.tripadvisor.com/img/cdsi/partner/full-logo-16819-0.gif" border="0" /></div>
+		{% endif %}
+{% endblock %}

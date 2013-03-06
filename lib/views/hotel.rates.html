@@ -1,0 +1,33 @@
+<div class="hotel_rates">
+	{% for rate in rates %}
+	<div class="rate_panel">
+		<div class="row rate_panel_header">
+			<div class="span rate_panel_title">{{ rate.title }}</div>
+			<div class="span rate_panel_book_it pull-right"><a href="{{ rate.booking_link }}" target="_blank" class="btn btn-success">Book&nbsp;It</a></div>
+			<div class="span rate_panel_ave_rate pull-right">{{ rate.ave_rate|number_format(2) }} USD<br /><span class="muted">Ave daily rate</span></div>			
+		</div>		
+		<div>
+			<table cellpadding="0" cellspacing="0" class="rate_calendar">
+			<tr>
+				<th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+			</tr>
+			{% for week in rate.calendar %}
+			<tr>
+				{% for date, price in week %}
+					{% if price > 0 %}
+					<td class="rate_available"><div class="rate_date">{{ date }}</div><div class="rate_price">{{ price|number_format(2) }}</div></td>
+					{% else %}
+					<td><div class="rate_date">{{ date }}</div><div class="rate_price">&nbsp;</div></td>
+					{% endif %}
+				{% endfor %}
+			</tr>
+			{% endfor %}
+			</table>
+		</div>
+	</div>
+	{% else %}
+	<div class="rate_panel">
+		<b>{{ no_rate_message|raw }}</b>
+	</div>
+	{% endfor %}
+</div>

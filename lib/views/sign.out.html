@@ -1,0 +1,29 @@
+{% extends output_type == 'partial' ? "partial.layout.html" : "full.layout.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="well">
+		<p class="lead">You have successfully signed out.</p>
+		<form class="form-horizontal" method="post" action="/Sign/In">
+			<input type="hidden" id="csrf" name="csrf" value="{{ csrf }}" />
+			<div class="control-group">
+				<label class="control-label" for="email">Email</label>
+				<div class="controls">
+					<input type="text" id="email" name="email" value="{{ email }}" placeholder="Email">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="password">Password</label>
+				<div class="controls">
+					<input type="password" id="password" name="password" placeholder="Password">
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn btn-success">Sign in</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

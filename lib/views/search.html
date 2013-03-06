@@ -1,0 +1,35 @@
+{% extends output_type == 'partial' ? "partial.layout.html" : "full.layout.html" %}
+
+{% import 'forms.html' as forms %}
+
+{% block content %}
+<script type="text/javascript">
+	var map_script = document.createElement("script");
+	map_script.type = "text/javascript";
+	map_script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyA-1aYJiCoBYL4qEKA2VwSFnvdBFfh0hDU&sensor=false&callback=searchMapInit";
+	document.body.appendChild(map_script);		      
+</script>
+
+<form action="/Searches/{{ search.key }}" method="PUT" id="update_search" class="form-inline" style="margin: 0 auto; max-width: 840px;">
+<h3 class="clearfix">{{ search.search_text }} <div class="pull-right" style="margin-top: -3px;"><button id="update_search_button" class="btn btn-success btn-mini" style="margin-right: 4px;">Save Changes</button><a href="/Searches/{{ search.key }}" id="archive_search" class="btn btn-danger btn-mini">Archive</a></div></h3>
+<input type="hidden" name="lat" id="lat" value="{{ search.latitude }}" />
+<input type="hidden" name="lon" id="lon" value="{{ search.longitude }}" />
+<input type="hidden" name= "max_price_condition" id="max_price_condition" value="{{ search.max_price_condition }}" />
+Search Name: <input type="text" name="search_name" id="search_name" value="{{ search.name }}" class="input-large" /> <span class="muted">(Your travelers may type this name into the search box to get these results.)</span>
+<ol>
+	<li style="padding-top: 12px;">
+		Hotels with ratings between <select name="min_rating" class="input-mini">{{ forms.options(valid_ratings, search.min_rating) }}</select> and <select name="max_rating" class="input-mini">{{ forms.options(valid_ratings, search.max_rating) }}</select> stars.
+	</li>
+	<li style="padding-top: 12px;">
+		<div><input type="radio" name="fixed_variable_pricing" value="variable" style="margin-bottom: 8px;"{% if search.fixed_variable_pricing == 'variable' %}checked="checked"{% endif %} /> Hotels with a maximum variable price of <input type="text" name="max_price_percent" value="{{ search.max_price_percent }}" class="input-mini" />% above the {{ search.max_price_condition }} of local <select name="max_price_rating" class="input-mini">{{ forms.options(valid_ratings, search.max_price_rating|default(search.min_rating)) }}</select> star hotels. <span class="muted">(Recommended)</span></div>
+		<div style="padding-top: 12px;"><input type="radio" name="fixed_variable_pricing" value="fixed" style="margin-bottom: 8px;"{% if search.fixed_variable_pricing == 'fixed' %}checked="checked"{% endif %} /> Hotels with a maximum fixed price of <input type="text" name="max_price" value="{{ search.max_price }}" class="input-small" /> USD.</div>
+		
+	</li>
+	<li style="padding-top: 12px;">
+		Hotels that are within <select name="proximity" id="proximity" class="input-mini">{{ forms.options(valid_proximities, search.proximity) }}</select> miles of the red marker. <span class="muted">(You can drag the red marker to reposition it.)</span>		
+	</li>
+</ol>
+<!--<button class="btn btn-success" style="margin: 6px 0;">Save Changes</button><button class="btn btn-success" style="margin: 6px 0; float: right;">Save Changes</button>-->
+</form>
+<div id="map" style="width: 100%; height: 650px;"></div>
+{% endblock %}

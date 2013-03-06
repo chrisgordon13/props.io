@@ -1,0 +1,69 @@
+.rate_panel {
+	padding: 12px; 
+	margin-bottom: 8px;
+	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4); 	
+}
+
+.rate_panel_header {
+	padding-bottom: 4px;
+	margin: 0 0 8px 0;
+	font-weight: bold;
+	border-bottom: 1px solid #E5E5E5;
+}
+
+.rate_panel_title {
+	font-size: 16px; 
+	margin-left: 0; 
+	padding-top: 8px;
+}
+
+.rate_panel_ave_rate {
+	margin-left: 4px; 
+	text-align: right; 
+	font-size: 12px; 
+	line-height: 12px;
+	padding-top: 2px;
+}
+
+.rate_panel_ave_rate span {
+	font-size: 10px;
+}
+
+.rate_panel_book_it {
+	margin-left: 8px;
+}
+
+.rate_panel_book_it a {
+	font-size: 12px; 
+	padding: 6px 12px; 
+	line-height: 12px;
+}
+
+.rate_calendar {
+	font-size: 11px;
+}
+
+.rate_calendar th {
+	min-width: 64px;
+}
+
+.rate_calendar td {
+	border: 1px solid #EDEDED;
+	text-align: right;
+	padding: 2px 3px 8px;
+}
+
+.rate_available {
+	background-color: #b1deb3;
+}
+
+.rate_date {
+	font-size: 10px;
+	line-height: 12px;
+	text-align: right;
+}
+
+.rate_price {
+	text-align: right;
+	padding-top: 6px;
+}

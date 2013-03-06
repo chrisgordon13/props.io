@@ -1,0 +1,67 @@
+.hotel_dates {
+	clear: both;
+	padding: 14px 0 16px;
+}
+
+.hotel_dates_display {
+	font-size: 12px; 
+	color: black;
+}
+
+.hotel_dates_display span {
+	font-weight: bold; 
+	text-decoration: underline;
+}
+
+.hotel_dates form {
+	padding: 0;
+	margin: 0;
+}
+
+.hotel_dates_header {
+	margin: 0;
+	padding: 0;
+	line-height: 12px;
+}
+
+.hotel_dates_header div {
+	font-size: 11px;
+	font-weight: bold;
+	padding: 0;
+	margin: 0;
+}
+
+.hotel_dates_fields {
+	margin: 0;
+	padding: 0;
+}
+
+.hotel_dates_fields div {	
+	margin: 0;
+	padding: 1px 0;	
+}
+
+.hotel_dates_fields input, .hotel_dates_fields select, .hotel_dates_fields button {	
+	padding: 4px;
+	margin: 0;
+	line-height: 20px;
+	height: 20px;
+}
+
+.hotel_dates_fields select, .hotel_dates_fields button {
+	height: 30px;
+	width: 50px;
+}
+
+.hotel_dates_fields button {
+	padding: 4px 10px;
+}
+
+.hotel_dates_fields label {
+	font-size: 11px;
+	font-weight: bold;
+	text-align: right;
+	padding-top: 5px;
+	padding-right: 2px;
+	float: right;
+}
