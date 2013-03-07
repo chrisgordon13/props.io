@@ -17,6 +17,13 @@ class TestController
             if (isset($args[1])) {
                 echo "At least 2 args " . $args[1];
             }
-		echo phpinfo();
+            
+            $this->eTest();
+            echo phpinfo();
 	}
+        
+        private function eTest()
+        {
+            echo "test";
+        }
 }
