@@ -13,6 +13,10 @@ class TestController
             if (isset($args[0])) {
                 echo "At least one arg " . $args[0];
             }
+            
+            if (isset($args[1])) {
+                echo "At least 2 args " . $args[1];
+            }
 		echo phpinfo();
 	}
 }
