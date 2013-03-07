@@ -24,6 +24,6 @@ class TestController
         
         private function eTest()
         {
-            echo "test";
+            echo "test two";
         }
 }
