@@ -10,6 +10,9 @@ class TestController
 
 	public function processRequest($args='') 
 	{
+            if (isset($args[0])) {
+                echo "At least one arg " . $args[0];
+            }
 		echo phpinfo();
 	}
 }
